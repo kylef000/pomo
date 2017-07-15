@@ -1,4 +1,6 @@
-# Pomo
+# Pomo <img src="/pomo.png" width="32">
+
+[![Build status](https://ci.appveyor.com/api/projects/status/9eqfaddr2m734438?svg=true)](https://ci.appveyor.com/project/kylef000/pomo)
 
 A WinForms implementation of a basic Pomodoro productivity timer in C#
 
