@@ -30,6 +30,7 @@ namespace pomo
             // Set timer to event handler
             PomoTimer.Tick += TimeEventProcessor;
 
+            // Initialize form
             InitializeComponent();
 
             // Force settings form to top
@@ -48,7 +49,6 @@ namespace pomo
             // Set PomoIcons to Disabled
             UpdatePomoIcon();
         }
-
 
         /// <summary>
         /// Handles minimizing the main form to the tray and enabling tray notifications
@@ -69,7 +69,6 @@ namespace pomo
             WindowState = FormWindowState.Normal;
             notifyIcon.Visible = false;
         }
-
 
         /// <summary>
         /// Handles actions at each tick of the timer by incrementing the count, updating the time label, 
@@ -101,14 +100,16 @@ namespace pomo
             UpdateTimerLabel();
             PomoTimer.Start();
 
-
             // If we are supposed to go on break, see how long it should be
             if (_break)
             {
                 // Increment number of pomodoros completed
                 _numPomo += 1;
 
+                // Update visuals
                 lblTimer.ForeColor = Color.Red;
+                UpdatePomoIcon();
+                
                 // If less than 4, go on a short break, otherwise go on a long break
                 if (_numPomo < 4)
                 {
@@ -124,15 +125,14 @@ namespace pomo
             }
             else
             {
+                // Update visuals
                 lblTimer.ForeColor = Color.Black;
-                
+                UpdatePomoIcon();
+
                 // Start a new pomo
                 _nextBreak = _settings.PomoTimer * 60;
                 _break = true;
             }
-
-            // Update Icons
-            UpdatePomoIcon();
 
             // Tell the user the timer is up
             if (_settings.AlertMe)
@@ -144,7 +144,6 @@ namespace pomo
         /// </summary>
         private void Alert()
         {
-
             var text = !_break ? "Take a break!" : "Break's over! Get back to work.";
             var title = @"Ding!";
 
@@ -243,7 +242,5 @@ namespace pomo
             _numPomo = 0;
             UpdatePomoIcon();        
         }
-
-
     }
 }
